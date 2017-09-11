@@ -1,4 +1,4 @@
-/*! version : 4.17.46
+/*! version : 4.17.45
  =========================================================
  bootstrap-datetimejs
  https://github.com/Eonasdan/bootstrap-datetimepicker
@@ -58,74 +58,74 @@
 
     var dateTimePicker = function (element, options) {
         var picker = {},
-        date,
-        viewDate,
-        unset = true,
-        input,
-        component = false,
-        widget = false,
-        use24Hours,
-        minViewModeNumber = 0,
-        actualFormat,
-        parseFormats,
-        currentViewMode,
-        datePickerModes = [
-        {
-            clsName: 'days',
-            navFnc: 'M',
-            navStep: 1
-        },
-        {
-            clsName: 'months',
-            navFnc: 'y',
-            navStep: 1
-        },
-        {
-            clsName: 'years',
-            navFnc: 'y',
-            navStep: 10
-        },
-        {
-            clsName: 'decades',
-            navFnc: 'y',
-            navStep: 100
-        }
-        ],
-        viewModes = ['days', 'months', 'years', 'decades'],
-        verticalModes = ['top', 'bottom', 'auto'],
-        horizontalModes = ['left', 'right', 'auto'],
-        toolbarPlacements = ['default', 'top', 'bottom'],
-        keyMap = {
-            'up': 38,
-            38: 'up',
-            'down': 40,
-            40: 'down',
-            'left': 37,
-            37: 'left',
-            'right': 39,
-            39: 'right',
-            'tab': 9,
-            9: 'tab',
-            'escape': 27,
-            27: 'escape',
-            'enter': 13,
-            13: 'enter',
-            'pageUp': 33,
-            33: 'pageUp',
-            'pageDown': 34,
-            34: 'pageDown',
-            'shift': 16,
-            16: 'shift',
-            'control': 17,
-            17: 'control',
-            'space': 32,
-            32: 'space',
-            't': 84,
-            84: 't',
-            'delete': 46,
-            46: 'delete'
-        },
-        keyState = {},
+            date,
+            viewDate,
+            unset = true,
+            input,
+            component = false,
+            widget = false,
+            use24Hours,
+            minViewModeNumber = 0,
+            actualFormat,
+            parseFormats,
+            currentViewMode,
+            datePickerModes = [
+                {
+                    clsName: 'days',
+                    navFnc: 'M',
+                    navStep: 1
+                },
+                {
+                    clsName: 'months',
+                    navFnc: 'y',
+                    navStep: 1
+                },
+                {
+                    clsName: 'years',
+                    navFnc: 'y',
+                    navStep: 10
+                },
+                {
+                    clsName: 'decades',
+                    navFnc: 'y',
+                    navStep: 100
+                }
+            ],
+            viewModes = ['days', 'months', 'years', 'decades'],
+            verticalModes = ['top', 'bottom', 'auto'],
+            horizontalModes = ['left', 'right', 'auto'],
+            toolbarPlacements = ['default', 'top', 'bottom'],
+            keyMap = {
+                'up': 38,
+                38: 'up',
+                'down': 40,
+                40: 'down',
+                'left': 37,
+                37: 'left',
+                'right': 39,
+                39: 'right',
+                'tab': 9,
+                9: 'tab',
+                'escape': 27,
+                27: 'escape',
+                'enter': 13,
+                13: 'enter',
+                'pageUp': 33,
+                33: 'pageUp',
+                'pageDown': 34,
+                34: 'pageDown',
+                'shift': 16,
+                16: 'shift',
+                'control': 17,
+                17: 'control',
+                'space': 32,
+                32: 'space',
+                't': 84,
+                84: 't',
+                'delete': 46,
+                46: 'delete'
+            },
+            keyState = {},
 
             /********************************************************************************
              *
@@ -133,7 +133,7 @@
              *
              ********************************************************************************/
 
-             hasTimeZone = function () {
+            hasTimeZone = function () {
                 return moment.tz !== undefined && options.timeZone !== undefined && options.timeZone !== null && options.timeZone !== '';
             },
 
@@ -193,48 +193,48 @@
 
             getDatePickerTemplate = function () {
                 var headTemplate = $('<thead>')
-                .append($('<tr>')
-                    .append($('<th>').addClass('prev').attr('data-action', 'previous')
-                        .append($('<span>').addClass(options.icons.previous))
-                        )
-                    .append($('<th>').addClass('picker-switch').attr('data-action', 'pickerSwitch').attr('colspan', (options.calendarWeeks ? '6' : '5')))
-                    .append($('<th>').addClass('next').attr('data-action', 'next')
-                        .append($('<span>').addClass(options.icons.next))
-                        )
-                    ),
-                contTemplate = $('<tbody>')
-                .append($('<tr>')
-                    .append($('<td>').attr('colspan', (options.calendarWeeks ? '8' : '7')))
-                    );
+                        .append($('<tr>')
+                            .append($('<th>').addClass('prev').attr('data-action', 'previous')
+                                .append($('<span>').addClass(options.icons.previous))
+                                )
+                            .append($('<th>').addClass('picker-switch').attr('data-action', 'pickerSwitch').attr('colspan', (options.calendarWeeks ? '6' : '5')))
+                            .append($('<th>').addClass('next').attr('data-action', 'next')
+                                .append($('<span>').addClass(options.icons.next))
+                                )
+                            ),
+                    contTemplate = $('<tbody>')
+                        .append($('<tr>')
+                            .append($('<td>').attr('colspan', (options.calendarWeeks ? '8' : '7')))
+                            );
 
                 return [
-                $('<div>').addClass('datepicker-days')
-                .append($('<table>').addClass('table-condensed')
-                    .append(headTemplate)
-                    .append($('<tbody>'))
-                    ),
-                $('<div>').addClass('datepicker-months')
-                .append($('<table>').addClass('table-condensed')
-                    .append(headTemplate.clone())
-                    .append(contTemplate.clone())
-                    ),
-                $('<div>').addClass('datepicker-years')
-                .append($('<table>').addClass('table-condensed')
-                    .append(headTemplate.clone())
-                    .append(contTemplate.clone())
-                    ),
-                $('<div>').addClass('datepicker-decades')
-                .append($('<table>').addClass('table-condensed')
-                    .append(headTemplate.clone())
-                    .append(contTemplate.clone())
-                    )
+                    $('<div>').addClass('datepicker-days')
+                        .append($('<table>').addClass('table-condensed')
+                            .append(headTemplate)
+                            .append($('<tbody>'))
+                            ),
+                    $('<div>').addClass('datepicker-months')
+                        .append($('<table>').addClass('table-condensed')
+                            .append(headTemplate.clone())
+                            .append(contTemplate.clone())
+                            ),
+                    $('<div>').addClass('datepicker-years')
+                        .append($('<table>').addClass('table-condensed')
+                            .append(headTemplate.clone())
+                            .append(contTemplate.clone())
+                            ),
+                    $('<div>').addClass('datepicker-decades')
+                        .append($('<table>').addClass('table-condensed')
+                            .append(headTemplate.clone())
+                            .append(contTemplate.clone())
+                            )
                 ];
             },
 
             getTimePickerMainTemplate = function () {
                 var topRow = $('<tr>'),
-                middleRow = $('<tr>'),
-                bottomRow = $('<tr>');
+                    middleRow = $('<tr>'),
+                    bottomRow = $('<tr>');
 
                 if (isEnabled('h')) {
                     topRow.append($('<td>')
@@ -283,18 +283,18 @@
                 }
 
                 return $('<div>').addClass('timepicker-picker')
-                .append($('<table>').addClass('table-condensed')
-                    .append([topRow, middleRow, bottomRow]));
+                    .append($('<table>').addClass('table-condensed')
+                        .append([topRow, middleRow, bottomRow]));
             },
 
             getTimePickerTemplate = function () {
                 var hoursView = $('<div>').addClass('timepicker-hours')
-                .append($('<table>').addClass('table-condensed')),
-                minutesView = $('<div>').addClass('timepicker-minutes')
-                .append($('<table>').addClass('table-condensed')),
-                secondsView = $('<div>').addClass('timepicker-seconds')
-                .append($('<table>').addClass('table-condensed')),
-                ret = [getTimePickerMainTemplate()];
+                        .append($('<table>').addClass('table-condensed')),
+                    minutesView = $('<div>').addClass('timepicker-minutes')
+                        .append($('<table>').addClass('table-condensed')),
+                    secondsView = $('<div>').addClass('timepicker-seconds')
+                        .append($('<table>').addClass('table-condensed')),
+                    ret = [getTimePickerMainTemplate()];
 
                 if (isEnabled('h')) {
                     ret.push(hoursView);
@@ -328,10 +328,10 @@
 
             getTemplate = function () {
                 var template = $('<div>').addClass('bootstrap-datetimepicker-widget dropdown-menu'),
-                dateView = $('<div>').addClass('datepicker').append(getDatePickerTemplate()),
-                timeView = $('<div>').addClass('timepicker').append(getTimePickerTemplate()),
-                content = $('<ul>').addClass('list-unstyled'),
-                toolbar = $('<li>').addClass('picker-switch' + (options.collapse ? ' accordion-toggle' : '')).append(getToolbar());
+                    dateView = $('<div>').addClass('datepicker').append(getDatePickerTemplate()),
+                    timeView = $('<div>').addClass('timepicker').append(getTimePickerTemplate()),
+                    content = $('<ul>').addClass('list-unstyled'),
+                    toolbar = $('<li>').addClass('picker-switch' + (options.collapse ? ' accordion-toggle' : '')).append(getToolbar());
 
                 if (options.inline) {
                     template.removeClass('dropdown-menu');
@@ -352,9 +352,9 @@
                     }
                     template.append(
                         $('<div>').addClass('row')
-                        .append(dateView.addClass('col-md-6'))
-                        .append(timeView.addClass('col-md-6'))
-                        );
+                            .append(dateView.addClass('col-md-6'))
+                            .append(timeView.addClass('col-md-6'))
+                    );
                     if (options.toolbarPlacement === 'bottom') {
                         template.append(toolbar);
                     }
@@ -381,7 +381,7 @@
 
             dataToOptions = function () {
                 var eData,
-                dataOptions = {};
+                    dataOptions = {};
 
                 if (element.is('input') || options.inline) {
                     eData = element.data();
@@ -404,10 +404,10 @@
 
             place = function () {
                 var position = (component || element).position(),
-                offset = (component || element).offset(),
-                vertical = options.widgetPositioning.vertical,
-                horizontal = options.widgetPositioning.horizontal,
-                parent;
+                    offset = (component || element).offset(),
+                    vertical = options.widgetPositioning.vertical,
+                    horizontal = options.widgetPositioning.horizontal,
+                    parent;
 
                 if (options.widgetParent) {
                     parent = options.widgetParent.append(widget);
@@ -502,7 +502,7 @@
 
             fillDow = function () {
                 var row = $('<tr>'),
-                currentDate = viewDate.clone().startOf('w').startOf('d');
+                    currentDate = viewDate.clone().startOf('w').startOf('d');
 
                 if (options.calendarWeeks === true) {
                     row.append($('<th>').addClass('cw').text('#'));
@@ -573,7 +573,7 @@
 
             fillMonths = function () {
                 var spans = [],
-                monthsShort = viewDate.clone().startOf('y').startOf('d');
+                    monthsShort = viewDate.clone().startOf('y').startOf('d');
                 while (monthsShort.isSame(viewDate, 'y')) {
                     spans.push($('<span>').attr('data-action', 'selectMonth').addClass('month').text(monthsShort.format('MMM')));
                     monthsShort.add(1, 'M');
@@ -583,8 +583,8 @@
 
             updateMonths = function () {
                 var monthsView = widget.find('.datepicker-months'),
-                monthsViewHeader = monthsView.find('th'),
-                months = monthsView.find('tbody').find('span');
+                    monthsViewHeader = monthsView.find('th'),
+                    months = monthsView.find('tbody').find('span');
 
                 monthsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevYear);
                 monthsViewHeader.eq(1).attr('title', options.tooltips.selectYear);
@@ -616,10 +616,10 @@
 
             updateYears = function () {
                 var yearsView = widget.find('.datepicker-years'),
-                yearsViewHeader = yearsView.find('th'),
-                startYear = viewDate.clone().subtract(5, 'y'),
-                endYear = viewDate.clone().add(6, 'y'),
-                html = '';
+                    yearsViewHeader = yearsView.find('th'),
+                    startYear = viewDate.clone().subtract(5, 'y'),
+                    endYear = viewDate.clone().add(6, 'y'),
+                    html = '';
 
                 yearsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevDecade);
                 yearsViewHeader.eq(1).attr('title', options.tooltips.selectDecade);
@@ -647,14 +647,14 @@
 
             updateDecades = function () {
                 var decadesView = widget.find('.datepicker-decades'),
-                decadesViewHeader = decadesView.find('th'),
-                startDecade = moment({ y: viewDate.year() - (viewDate.year() % 100) - 1 }),
-                endDecade = startDecade.clone().add(100, 'y'),
-                startedAt = startDecade.clone(),
-                minDateDecade = false,
-                maxDateDecade = false,
-                endDecadeYear,
-                html = '';
+                    decadesViewHeader = decadesView.find('th'),
+                    startDecade = moment({ y: viewDate.year() - (viewDate.year() % 100) - 1 }),
+                    endDecade = startDecade.clone().add(100, 'y'),
+                    startedAt = startDecade.clone(),
+                    minDateDecade = false,
+                    maxDateDecade = false,
+                    endDecadeYear,
+                    html = '';
 
                 decadesViewHeader.eq(0).find('span').attr('title', options.tooltips.prevCentury);
                 decadesViewHeader.eq(2).find('span').attr('title', options.tooltips.nextCentury);
@@ -676,7 +676,7 @@
                     minDateDecade = options.minDate && options.minDate.isAfter(startDecade, 'y') && options.minDate.year() <= endDecadeYear;
                     maxDateDecade = options.maxDate && options.maxDate.isAfter(startDecade, 'y') && options.maxDate.year() <= endDecadeYear;
                     html += '<span data-action="selectDecade" class="decade' + (date.isAfter(startDecade) && date.year() <= endDecadeYear ? ' active' : '') +
-                    (!isValid(startDecade, 'y') && !minDateDecade && !maxDateDecade ? ' disabled' : '') + '" data-selection="' + (startDecade.year() + 6) + '">' + (startDecade.year() + 1) + ' - ' + (startDecade.year() + 12) + '</span>';
+                        (!isValid(startDecade, 'y') && !minDateDecade && !maxDateDecade ? ' disabled' : '') + '" data-selection="' + (startDecade.year() + 6) + '">' + (startDecade.year() + 1) + ' - ' + (startDecade.year() + 12) + '</span>';
                     startDecade.add(12, 'y');
                 }
                 html += '<span></span><span></span><span></span>'; //push the dangling block over, at least this way it's even
@@ -687,12 +687,12 @@
 
             fillDate = function () {
                 var daysView = widget.find('.datepicker-days'),
-                daysViewHeader = daysView.find('th'),
-                currentDate,
-                html = [],
-                row,
-                clsNames = [],
-                i;
+                    daysViewHeader = daysView.find('th'),
+                    currentDate,
+                    html = [],
+                    row,
+                    clsNames = [],
+                    i;
 
                 if (!hasDate()) {
                     return;
@@ -761,9 +761,9 @@
 
             fillHours = function () {
                 var table = widget.find('.timepicker-hours table'),
-                currentHour = viewDate.clone().startOf('d'),
-                html = [],
-                row = $('<tr>');
+                    currentHour = viewDate.clone().startOf('d'),
+                    html = [],
+                    row = $('<tr>');
 
                 if (viewDate.hour() > 11 && !use24Hours) {
                     currentHour.hour(12);
@@ -781,10 +781,10 @@
 
             fillMinutes = function () {
                 var table = widget.find('.timepicker-minutes table'),
-                currentMinute = viewDate.clone().startOf('h'),
-                html = [],
-                row = $('<tr>'),
-                step = options.stepping === 1 ? 5 : options.stepping;
+                    currentMinute = viewDate.clone().startOf('h'),
+                    html = [],
+                    row = $('<tr>'),
+                    step = options.stepping === 1 ? 5 : options.stepping;
 
                 while (viewDate.isSame(currentMinute, 'h')) {
                     if (currentMinute.minute() % (step * 4) === 0) {
@@ -799,9 +799,9 @@
 
             fillSeconds = function () {
                 var table = widget.find('.timepicker-seconds table'),
-                currentSecond = viewDate.clone().startOf('m'),
-                html = [],
-                row = $('<tr>');
+                    currentSecond = viewDate.clone().startOf('m'),
+                    html = [],
+                    row = $('<tr>');
 
                 while (viewDate.isSame(currentSecond, 'm')) {
                     if (currentSecond.second() % 20 === 0) {
@@ -911,7 +911,7 @@
             /**
              * Hides the widget. Possibly will emit dp.hide
              */
-             hide = function () {
+            hide = function () {
                 var transitioning = false;
                 if (!widget) {
                     return picker;
@@ -974,7 +974,7 @@
              * Widget UI interaction functions
              *
              ********************************************************************************/
-             actions = {
+            actions = {
                 next: function () {
                     var navFnc = datePickerModes[currentViewMode].navFnc;
                     viewDate.add(datePickerModes[currentViewMode].navStep, navFnc);
@@ -1100,10 +1100,10 @@
 
                 togglePicker: function (e) {
                     var $this = $(e.target),
-                    $parent = $this.closest('ul'),
-                    expanded = $parent.find('.in'),
-                    closed = $parent.find('.collapse:not(.in)'),
-                    collapseData;
+                        $parent = $this.closest('ul'),
+                        expanded = $parent.find('.in'),
+                        closed = $parent.find('.collapse:not(.in)'),
+                        collapseData;
 
                     if (expanded && expanded.length) {
                         collapseData = expanded.data('collapse');
@@ -1201,25 +1201,25 @@
             /**
              * Shows the widget. Possibly will emit dp.show and dp.change
              */
-             show = function () {
+            show = function () {
                 var currentMoment,
-                useCurrentGranularity = {
-                    'year': function (m) {
-                        return m.month(0).date(1).hours(0).seconds(0).minutes(0);
-                    },
-                    'month': function (m) {
-                        return m.date(1).hours(0).seconds(0).minutes(0);
-                    },
-                    'day': function (m) {
-                        return m.hours(0).seconds(0).minutes(0);
-                    },
-                    'hour': function (m) {
-                        return m.seconds(0).minutes(0);
-                    },
-                    'minute': function (m) {
-                        return m.seconds(0);
-                    }
-                };
+                    useCurrentGranularity = {
+                        'year': function (m) {
+                            return m.month(0).date(1).hours(0).seconds(0).minutes(0);
+                        },
+                        'month': function (m) {
+                            return m.date(1).hours(0).seconds(0).minutes(0);
+                        },
+                        'day': function (m) {
+                            return m.hours(0).seconds(0).minutes(0);
+                        },
+                        'hour': function (m) {
+                            return m.seconds(0).minutes(0);
+                        },
+                        'minute': function (m) {
+                            return m.seconds(0);
+                        }
+                    };
 
                 if (input.prop('disabled') || (!options.ignoreReadonly && input.prop('readonly')) || widget) {
                     return picker;
@@ -1231,9 +1231,7 @@
                     if (typeof options.useCurrent === 'string') {
                         currentMoment = useCurrentGranularity[options.useCurrent](currentMoment);
                     }
-                    if (options.setValueOnShow) {
-                        setValue(currentMoment);
-                    }
+                    setValue(currentMoment);
                 }
                 widget = getTemplate();
 
@@ -1269,20 +1267,20 @@
             /**
              * Shows or hides the widget
              */
-             toggle = function () {
+            toggle = function () {
                 return (widget ? hide() : show());
             },
 
             keydown = function (e) {
                 var handler = null,
-                index,
-                index2,
-                pressedKeys = [],
-                pressedModifiers = {},
-                currentKey = e.which,
-                keyBindKeys,
-                allModifiersPressed,
-                pressed = 'p';
+                    index,
+                    index2,
+                    pressedKeys = [],
+                    pressedModifiers = {},
+                    currentKey = e.which,
+                    keyBindKeys,
+                    allModifiersPressed,
+                    pressed = 'p';
 
                 keyState[currentKey] = pressed;
 
@@ -1329,7 +1327,7 @@
 
             change = function (e) {
                 var val = $(e.target).val().trim(),
-                parsedDate = val ? parseInputDate(val) : null;
+                    parsedDate = val ? parseInputDate(val) : null;
                 setValue(parsedDate);
                 e.stopImmediatePropagation();
                 return false;
@@ -2164,11 +2162,6 @@
             return picker;
         };
 
-        picker.setValueOnShow = function (setValueOnShow) {
-            options.setValueOnShow = setValueOnShow;
-            return picker;
-        };
-
         picker.keepInvalid = function (keepInvalid) {
             if (arguments.length === 0) {
                 return options.keepInvalid;
@@ -2209,31 +2202,31 @@
         };
 
         picker.disabledTimeIntervals = function (disabledTimeIntervals) {
-                ///<signature helpKeyword="$.fn.datetimepicker.disabledTimeIntervals">
-                ///<summary>Returns an array with the currently set disabled dates on the component.</summary>
-                ///<returns type="array">options.disabledTimeIntervals</returns>
-                ///</signature>
-                ///<signature>
-                ///<summary>Setting this takes precedence over options.minDate, options.maxDate configuration. Also calling this function removes the configuration of
-                ///options.enabledDates if such exist.</summary>
-                ///<param name="dates" locid="$.fn.datetimepicker.disabledTimeIntervals_p:dates">Takes an [ string or Date or moment ] of values and allows the user to select only from those days.</param>
-                ///</signature>
-                if (arguments.length === 0) {
-                    return (options.disabledTimeIntervals ? $.extend({}, options.disabledTimeIntervals) : options.disabledTimeIntervals);
-                }
+            ///<signature helpKeyword="$.fn.datetimepicker.disabledTimeIntervals">
+            ///<summary>Returns an array with the currently set disabled dates on the component.</summary>
+            ///<returns type="array">options.disabledTimeIntervals</returns>
+            ///</signature>
+            ///<signature>
+            ///<summary>Setting this takes precedence over options.minDate, options.maxDate configuration. Also calling this function removes the configuration of
+            ///options.enabledDates if such exist.</summary>
+            ///<param name="dates" locid="$.fn.datetimepicker.disabledTimeIntervals_p:dates">Takes an [ string or Date or moment ] of values and allows the user to select only from those days.</param>
+            ///</signature>
+            if (arguments.length === 0) {
+                return (options.disabledTimeIntervals ? $.extend({}, options.disabledTimeIntervals) : options.disabledTimeIntervals);
+            }
 
-                if (!disabledTimeIntervals) {
-                    options.disabledTimeIntervals = false;
-                    update();
-                    return picker;
-                }
-                if (!(disabledTimeIntervals instanceof Array)) {
-                    throw new TypeError('disabledTimeIntervals() expects an array parameter');
-                }
-                options.disabledTimeIntervals = disabledTimeIntervals;
+            if (!disabledTimeIntervals) {
+                options.disabledTimeIntervals = false;
                 update();
                 return picker;
-            };
+            }
+            if (!(disabledTimeIntervals instanceof Array)) {
+                throw new TypeError('disabledTimeIntervals() expects an array parameter');
+            }
+            options.disabledTimeIntervals = disabledTimeIntervals;
+            update();
+            return picker;
+        };
 
         picker.disabledHours = function (hours) {
             ///<signature helpKeyword="$.fn.datetimepicker.disabledHours">
@@ -2417,14 +2410,14 @@
         options = options || {};
 
         var args = Array.prototype.slice.call(arguments, 1),
-        isInstance = true,
-        thisMethods = ['destroy', 'hide', 'show', 'toggle'],
-        returnValue;
+            isInstance = true,
+            thisMethods = ['destroy', 'hide', 'show', 'toggle'],
+            returnValue;
 
         if (typeof options === 'object') {
             return this.each(function () {
                 var $this = $(this),
-                _options;
+                    _options;
                 if (!$this.data('DateTimePicker')) {
                     // create a private copy of the defaults object
                     _options = $.extend(true, {}, $.fn.datetimepicker.defaults, options);
@@ -2434,7 +2427,7 @@
         } else if (typeof options === 'string') {
             this.each(function () {
                 var $this = $(this),
-                instance = $this.data('DateTimePicker');
+                    instance = $this.data('DateTimePicker');
                 if (!instance) {
                     throw new Error('bootstrap-datetimepicker("' + options + '") method was called on an element that is not using DateTimePicker');
                 }
@@ -2514,7 +2507,6 @@
         showTodayButton: false,
         showClear: false,
         showClose: false,
-        setValueOnShow: false,
         widgetPositioning: {
             horizontal: 'auto',
             vertical: 'auto'
