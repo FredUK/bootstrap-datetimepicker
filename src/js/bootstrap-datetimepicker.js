@@ -434,7 +434,7 @@
                 // Left and right logic
                 if (horizontal === 'auto') {
                     if (options.widgetPositioning.avoidRightOverlap &&
-                        offset.left + widget.outerWidth() > $(parent).width()) {
+                        offset.left + widget.outerWidth() > $(window).width()) {
                         horizontal = 'right';
 
                         //if more than half widget is overflowing the right boundary of parent
@@ -2522,7 +2522,7 @@
         widgetPositioning: {
             horizontal: 'auto',
             vertical: 'auto',
-            avoidRightOverlap: true
+            avoidRightOverlap: false
         },
         widgetParent: null,
         ignoreReadonly: false,
