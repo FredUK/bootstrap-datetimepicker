@@ -2522,7 +2522,7 @@
         widgetPositioning: {
             horizontal: 'auto',
             vertical: 'auto',
-            avoidRightOverlap: false
+            avoidRightOverlap: true
         },
         widgetParent: null,
         ignoreReadonly: false,
