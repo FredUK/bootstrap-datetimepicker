@@ -69,7 +69,6 @@
             actualFormat,
             parseFormats,
             currentViewMode,
-            isValidFn = null,
             datePickerModes = [
                 {
                     clsName: 'days',
@@ -524,10 +523,6 @@
 
             isInDisabledDates = function (testDate) {
                 return options.disabledDates[testDate.format('YYYY-MM-DD')] === true;
-            },
-
-            isInDisableFunction = function (testDate) {
-                return options.isValidFn(testDate) === false;
             },
 
             isInEnabledDates = function (testDate) {
@@ -1773,9 +1768,9 @@
             return picker;
         };
 
-        picker.isValidFn = function (externalFunction) {
-            isInDisableFunction = externalFunction;
-        }
+        picker.isValidFn = function () {
+            return picker;
+        };
 
         picker.defaultDate = function (defaultDate) {
             ///<signature helpKeyword="$.fn.datetimepicker.defaultDate">
