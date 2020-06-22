@@ -541,11 +541,6 @@
                 if (!targetMoment.isValid()) {
                     return false;
                 }
-
-                if (options.isValidFn && !options.isValidFn(targetMoment)) {
-                    return false;
-                }
-
                 if (options.disabledDates && granularity === 'd' && isInDisabledDates(targetMoment)) {
                     return false;
                 }
@@ -1768,10 +1763,6 @@
             return picker;
         };
 
-        picker.isValidFn = function () {
-            return picker;
-        };
-
         picker.defaultDate = function (defaultDate) {
             ///<signature helpKeyword="$.fn.datetimepicker.defaultDate">
             ///<summary>Returns a moment with the options.defaultDate option configuration or false if not set</summary>
@@ -2652,8 +2643,7 @@
         disabledTimeIntervals: false,
         disabledHours: false,
         enabledHours: false,
-        viewDate: false,
-        isValidFn: null
+        viewDate: false
     };
 
     return $.fn.datetimepicker;
