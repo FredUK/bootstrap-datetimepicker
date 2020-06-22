@@ -196,11 +196,13 @@
                         .append($('<tr>')
                             .append($('<th>').addClass('prev').attr('data-action', 'previous')
                                 .append($('<span>').addClass(options.icons.previous))
-                                )
+                              .append($('<span>').addClass('sr-only')
+                                ))
                             .append($('<th>').addClass('picker-switch').attr('data-action', 'pickerSwitch').attr('colspan', (options.calendarWeeks ? '6' : '5')))
                             .append($('<th>').addClass('next').attr('data-action', 'next')
                                 .append($('<span>').addClass(options.icons.next))
-                                )
+                              .append($('<span>').addClass('sr-only')
+                                ))
                             ),
                     contTemplate = $('<tbody>')
                         .append($('<tr>')
@@ -323,6 +325,11 @@
                 if (options.showClose) {
                     row.push($('<td>').append($('<a>').attr({ 'data-action': 'close', 'title': options.tooltips.close }).append($('<span>').addClass(options.icons.close))));
                 }
+
+                if (!row.length) {
+                    return null;
+                }
+
                 return $('<table>').addClass('table-condensed').append($('<tbody>').append($('<tr>').append(row)));
             },
 
@@ -586,7 +593,9 @@
                 var spans = [],
                     monthsShort = viewDate.clone().startOf('y').startOf('d');
                 while (monthsShort.isSame(viewDate, 'y')) {
-                    spans.push($('<span>').attr('data-action', 'selectMonth').addClass('month').text(monthsShort.format('MMM')));
+                    spans.push($('<span>').attr('data-action', 'selectMonth').addClass('month')
+                      .append($('<caption>').text(monthsShort.format('MMM')))
+                      );
                     monthsShort.add(1, 'M');
                 }
                 widget.find('.datepicker-months td').empty().append(spans);
@@ -598,8 +607,12 @@
                     months = monthsView.find('tbody').find('span');
 
                 monthsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevYear);
+                monthsViewHeader.eq(0).find('.sr-only').text(options.tooltips.prevYear).attr('title', '');
+
                 monthsViewHeader.eq(1).attr('title', options.tooltips.selectYear);
+
                 monthsViewHeader.eq(2).find('span').attr('title', options.tooltips.nextYear);
+                monthsViewHeader.eq(2).find('.sr-only').text(options.tooltips.nextYear).attr('title', '');
 
                 monthsView.find('.disabled').removeClass('disabled');
 
@@ -633,8 +646,12 @@
                     html = '';
 
                 yearsViewHeader.eq(0).find('span').attr('title', options.tooltips.prevDecade);
+                yearsViewHeader.eq(0).find('.sr-only').text(options.tooltips.prevDecade).attr('title', '');
+
                 yearsViewHeader.eq(1).attr('title', options.tooltips.selectDecade);
+
                 yearsViewHeader.eq(2).find('span').attr('title', options.tooltips.nextDecade);
+                yearsViewHeader.eq(2).find('.sr-only').text(options.tooltips.nextDecade).attr('title', '');
 
                 yearsView.find('.disabled').removeClass('disabled');
 
@@ -668,7 +685,9 @@
                     html = '';
 
                 decadesViewHeader.eq(0).find('span').attr('title', options.tooltips.prevCentury);
+                decadesViewHeader.eq(0).find('.sr-only').text(options.tooltips.prevCentury).attr('title', '');
                 decadesViewHeader.eq(2).find('span').attr('title', options.tooltips.nextCentury);
+                decadesViewHeader.eq(2).find('.sr-only').text(options.tooltips.nextCentury).attr('title', '');
 
                 decadesView.find('.disabled').removeClass('disabled');
 
@@ -710,8 +729,10 @@
                 }
 
                 daysViewHeader.eq(0).find('span').attr('title', options.tooltips.prevMonth);
+                daysViewHeader.eq(0).find('.sr-only').text(options.tooltips.prevMonth).attr('title', '');
                 daysViewHeader.eq(1).attr('title', options.tooltips.selectMonth);
                 daysViewHeader.eq(2).find('span').attr('title', options.tooltips.nextMonth);
+                daysViewHeader.eq(2).find('.sr-only').text(options.tooltips.prevMonth).attr('title', '');
 
                 daysView.find('.disabled').removeClass('disabled');
                 daysViewHeader.eq(1).text(viewDate.format(options.dayViewHeaderFormat));
