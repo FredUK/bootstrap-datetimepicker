@@ -323,6 +323,11 @@
   color: #777777;
   cursor: not-allowed;
 }
+.bootstrap-datetimepicker-widget table td caption {
+  display: inline-block;
+  width: 54px;
+  height: 54px;
+}
 .bootstrap-datetimepicker-widget table td span {
   display: inline-block;
   width: 54px;

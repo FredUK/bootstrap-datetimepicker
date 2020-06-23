@@ -295,6 +295,12 @@ $bs-datetimepicker-text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25) !default;
                 color: $bs-datetimepicker-disabled-color;
                 cursor: not-allowed;
             }
+            
+            caption {
+                display: inline-block;
+                width: 54px;
+                height: 54px;  
+            }
 
             span {
                 display: inline-block;
