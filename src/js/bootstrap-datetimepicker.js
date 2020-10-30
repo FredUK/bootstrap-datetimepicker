@@ -1026,7 +1026,7 @@
                 },
 
                 selectMonth: function (e) {
-                    var month = $(e.target).closest('tbody').find('span').index($(e.target));
+                    var month = $(e.target).closest('tbody').find('span').index($(e.target.parentElement));
                     viewDate.month(month);
                     if (currentViewMode === minViewModeNumber) {
                         setValue(date.clone().year(viewDate.year()).month(viewDate.month()));
