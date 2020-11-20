@@ -549,7 +549,7 @@
                     return false;
                 }
 
-                if (options.isValidFn && !options.isValidFn(targetMoment)) {
+                if (options.isValidFn && granularity === 'd' && !options.isValidFn(targetMoment)) {
                     return false;
                 }
 
